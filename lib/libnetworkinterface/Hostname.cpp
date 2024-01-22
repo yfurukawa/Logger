@@ -20,7 +20,7 @@ Hostname::Hostname(std::string hostname) : hostname_(std::move(hostname))
     }
 }
 
-std::string Hostname::get() const
+std::string Hostname::get()
 {
     return hostname_;
 }

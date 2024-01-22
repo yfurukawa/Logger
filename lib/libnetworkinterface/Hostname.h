@@ -19,6 +19,7 @@
 */
 class Hostname final
 {
+public:
     /*!
      @brief  デフォルトコンストラクタ
     */
@@ -39,7 +40,7 @@ class Hostname final
      @brief  コンストラクタ
      @param[in] hostname RFC952及びRFC1123に準拠したホスト名
     */
-    std::string get() const;
+    std::string get();
 
 private:
     std::string const hostname_;  //!< RFC952及びRFC1123に準拠したホスト名
