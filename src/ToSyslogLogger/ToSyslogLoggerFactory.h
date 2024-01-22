@@ -11,6 +11,7 @@
 #include "ToSyslogLogger.h"
 #include "UdpClient.h"
 #include "Port.h"
+#include "Hostname.h"
 
 // --------------< namespace >---------------------------
 namespace AbstLogger {
@@ -54,7 +55,14 @@ public:
         if( !logger_ ) {
             std::lock_guard<std::mutex> lock(loggerMtx_);
             if( !logger_ ) {
-                logger_ = dynamic_cast<Logger*>( new ToSyslogLogger( std::make_unique<::UdpClient>( std::make_unique<IPv4>("127.0.0.1"), std::make_unique<Port>(514)) ) );
+                auto ip = new IPv4("127.0.0.1");
+                auto host = new Hostname("localhost");
+                auto port = new Port(514);
+                //logger_ = dynamic_cast<Logger*>( new ToSyslogLogger( std::make_unique<::UdpClient>( ip, port ) ) );
+                logger_ = dynamic_cast<Logger*>( new ToSyslogLogger( std::make_unique<::UdpClient>( host, port ) ) );
+                delete ip;
+                delete host;
+                delete port;
             }
         }
         return logger_;
