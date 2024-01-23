@@ -55,14 +55,19 @@ public:
         if( !logger_ ) {
             std::lock_guard<std::mutex> lock(loggerMtx_);
             if( !logger_ ) {
+                /*
                 auto ip = new IPv4("127.0.0.1");
                 auto host = new Hostname("localhost");
                 auto port = new Port(514);
+                */
+                IPv4 ip("127.0.0.1");
+                Hostname host("localhost");
+                Port port(514);
                 //logger_ = dynamic_cast<Logger*>( new ToSyslogLogger( std::make_unique<::UdpClient>( ip, port ) ) );
                 logger_ = dynamic_cast<Logger*>( new ToSyslogLogger( std::make_unique<::UdpClient>( host, port ) ) );
-                delete ip;
+                /*delete ip;
                 delete host;
-                delete port;
+                delete port;*/
             }
         }
         return logger_;
