@@ -40,17 +40,3 @@ void UdpClient::initialize(std::string ipAddress, Port& port)
     addr_.sin_addr.s_addr = inet_addr( ipAddress.c_str() );
     addr_.sin_port = htons( port.get() );
 }
-/*
-std::string UdpClient::resolveHostname(Hostname& hostname)
-{
-    auto host = gethostbyname( hostname.get().c_str() );
-    std::stringstream ss;
-
-    ss << std::to_string( (unsigned char)*(host->h_addr_list[0]) ) << "."
-    << std::to_string( (unsigned char)*(host->h_addr_list[0] + 1) ) << "."
-    << std::to_string( (unsigned char)*(host->h_addr_list[0] + 2) ) << "."
-    << std::to_string( (unsigned char)*(host->h_addr_list[0] + 3) );
-
-    return ss.str();
-}
-*/

@@ -58,5 +58,4 @@ private:
     struct sockaddr_in addr_;             //!< ネットワーク設定
 
     void initialize(std::string ipAddress, Port& port);
-    //std::string resolveHostname(Hostname& hostname);
 };
