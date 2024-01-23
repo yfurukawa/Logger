@@ -5,9 +5,10 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include "UdpClient.h"
-#include "Port.h"
 #include "Hostname.h"
 #include "IPv4.h"
+#include "NetworkIfHelper.hpp"
+#include "Port.h"
 
 UdpClient::UdpClient( IPv4& ipAddress, Port& port )
 {
@@ -16,7 +17,7 @@ UdpClient::UdpClient( IPv4& ipAddress, Port& port )
 
 UdpClient::UdpClient( Hostname& hostname, Port& port )
 {
-    this->initialize(this->resolveHostname(hostname), port);
+    this->initialize(resolveHostname(hostname), port);
 }
 
 void UdpClient::send( std::string content ) const
@@ -39,7 +40,7 @@ void UdpClient::initialize(std::string ipAddress, Port& port)
     addr_.sin_addr.s_addr = inet_addr( ipAddress.c_str() );
     addr_.sin_port = htons( port.get() );
 }
-
+/*
 std::string UdpClient::resolveHostname(Hostname& hostname)
 {
     auto host = gethostbyname( hostname.get().c_str() );
@@ -52,4 +53,4 @@ std::string UdpClient::resolveHostname(Hostname& hostname)
 
     return ss.str();
 }
-
+*/
