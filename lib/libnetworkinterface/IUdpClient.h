@@ -33,14 +33,14 @@ public:
     @param[in]  ipAddress サーバアドレス
     @param[in]  port サーバの待ち受けポート番号
     */
-    IUdpClient( std::unique_ptr<IPv4> ipAddress, std::unique_ptr<Port> port ){};
+    IUdpClient( IPv4& ipAddress, Port& port ){};
 
     /*!
     @brief      コンストラクタ
     @param[in]  hostname RFC952及びRFC1123に準拠したホスト名
     @param[in]  port サーバの待ち受けポート番号
     */
-    IUdpClient( std::unique_ptr<Hostname> hostname, std::unique_ptr<Port> port ){};
+    IUdpClient( Hostname& hostname, Port& port ){};
 
     /*!
     @brief  デフォルトデストラクタ

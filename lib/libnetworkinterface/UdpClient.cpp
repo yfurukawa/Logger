@@ -1,5 +1,6 @@
 #include <netdb.h>
 #include <sstream>
+#include <string>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -8,21 +9,14 @@
 #include "Hostname.h"
 #include "IPv4.h"
 
-UdpClient::UdpClient( std::unique_ptr<IPv4> ipAddress, std::unique_ptr<Port> port )
-    : ipAddress_( std::move(ipAddress) ),
-    port_( std::move(port) ),
-    hostname_(nullptr)
+UdpClient::UdpClient( IPv4& ipAddress, Port& port )
 {
-    this->initialize();
+    this->initialize(ipAddress.get(), port);
 }
 
-UdpClient::UdpClient( std::unique_ptr<Hostname> hostname, std::unique_ptr<Port> port )
-    : ipAddress_( nullptr ),
-    port_( std::move(port) ),
-    hostname_( std::move(hostname) )
+UdpClient::UdpClient( Hostname& hostname, Port& port )
 {
-    this->resolveHostname();
-    this->initialize();
+    this->initialize(this->resolveHostname(hostname), port);
 }
 
 void UdpClient::send( std::string content ) const
@@ -34,7 +28,7 @@ void UdpClient::send( std::string content ) const
     }
 }
 
-void UdpClient::initialize()
+void UdpClient::initialize(std::string ipAddress, Port& port)
 {
     sock_ = socket( AF_INET, SOCK_DGRAM, 0 );
     if( sock_ == -1 ) {
@@ -42,17 +36,20 @@ void UdpClient::initialize()
         exit(1);
     }
     addr_.sin_family = AF_INET;
-    addr_.sin_addr.s_addr = inet_addr( ipAddress_->get().c_str() );
-    addr_.sin_port = htons( port_->get() );
+    addr_.sin_addr.s_addr = inet_addr( ipAddress.c_str() );
+    addr_.sin_port = htons( port.get() );
 }
 
-void UdpClient::resolveHostname()
+std::string UdpClient::resolveHostname(Hostname& hostname)
 {
-    auto host = gethostbyname( hostname_->get().c_str() );
+    auto host = gethostbyname( hostname.get().c_str() );
     std::stringstream ss;
-    ss << (unsigned char)*((host->h_addr_list[0])) << "."
-    << (unsigned char)*((host->h_addr_list[0] + 1)) << "."
-    << (unsigned char)*((host->h_addr_list[0] + 2)) << "."
-    << (unsigned char)*((host->h_addr_list[0] + 3));
-    ipAddress_ = std::make_unique<IPv4>(ss.str());
+
+    ss << std::to_string( (unsigned char)*(host->h_addr_list[0]) ) << "."
+    << std::to_string( (unsigned char)*(host->h_addr_list[0] + 1) ) << "."
+    << std::to_string( (unsigned char)*(host->h_addr_list[0] + 2) ) << "."
+    << std::to_string( (unsigned char)*(host->h_addr_list[0] + 3) );
+
+    return ss.str();
 }
+
