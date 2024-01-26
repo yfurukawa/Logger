@@ -22,5 +22,6 @@ clean:
 
 install:
 	$(INSTALL) $(TARGET) $(LIB_DIR)
-	$(CP) *.h $(INCLUDE_DIR)
-	$(CP) skills/ $(INCLUDE_DIR)
+	$(INSTALL) *.h $(INCLUDE_DIR)
+	mkdir -m 644 -p $(INCLUDE_DIR)/skills
+	$(INSTALL) skills/* $(INCLUDE_DIR)/skills
