@@ -22,4 +22,4 @@ clean:
 
 install:
 	$(INSTALL) $(TARGET) $(LIB_DIR)
-	$(CP) *.h $(INCLUDE_DIR)
+	$(INSTALL) *.h $(INCLUDE_DIR)
