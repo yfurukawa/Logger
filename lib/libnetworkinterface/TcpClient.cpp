@@ -53,11 +53,11 @@ std::optional<std::string> TcpClient::receiveData()
                 receiveBuffer[byteIndex+1] = '\0';
                 break;
             }
-            else if(byteReceived == 0){
-                receiveBuffer[byteIndex] = '\0';
-                break;
-            }
             byteIndex += byteReceived;
+        }
+        else {
+            receiveBuffer[byteIndex] = '\0';
+            break;
         }
     }
 
