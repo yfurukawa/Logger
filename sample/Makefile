@@ -10,7 +10,7 @@ TARGET = LoggerClient
 SRC = main.cpp Client.cpp
 
 $(TARGET): $(SRC:.cpp=.o)
-	$(CC) $(INCLUUDE) $(LD_PATH) $(LIB) $(OPT) -o $(TARGET) $(SRC:.cpp=.o)
+	$(CC) $(INCLUUDE) $(LD_PATH) $(OPT) -o $(TARGET) $(SRC:.cpp=.o) $(LIB) 
 
 $(SRC:.cpp=.o): $(SRC)
 	$(CC) $(INCLUUDE) $(LD_PATH) $(OPT) -c $(SRC)
