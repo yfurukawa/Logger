@@ -11,7 +11,7 @@ TARGET = liblogger_Console.so.1.0.0
 SRC = ToConsoleLoggerFactory.cpp ToConsoleLogger.cpp
 
 $(TARGET): $(SRC:.cpp=.o)
-	$(CC) $(INCLUUDE) $(LD_PATH) $(LIB) $(OPT) -o $(TARGET) $(SRC:.cpp=.o)
+	$(CC) $(INCLUUDE) $(LD_PATH) $(LIB) $(OPT) -o $(TARGET) $(SRC:.cpp=.o) /usr/local/lib64/libclock.a
 
 $(SRC:.cpp=.o):
 	$(CC) $(INCLUUDE) $(LD_PATH) $(LIB) $(OPT) -c $(SRC)
