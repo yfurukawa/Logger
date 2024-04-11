@@ -6,7 +6,7 @@ LD_PATH = -L/usr/lib64 -L/usr/local/lib64
 LIB_DIR = /usr/local/lib64
 LIB = /usr/local/lib64/libfileinterface.a /usr/local/lib64/libclock.a
 OPT = -O0 -Wall -std=c++17 -fPIC -shared
-TARGET = liblogger_File.so.1.0.0
+TARGET = liblogger_File.so.1.1.0
 SRC = ToFileLoggerFactory.cpp ToFileLogger.cpp
 
 $(TARGET): $(SRC:.cpp=.o)

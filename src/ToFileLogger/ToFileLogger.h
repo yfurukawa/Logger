@@ -39,7 +39,7 @@ public:
     /*!
     @brief  デフォルトデストラクタ
     */
-    virtual ~ToFileLogger() = default;
+    virtual ~ToFileLogger();
 
     /*!
     @brief      ログデータを記録する

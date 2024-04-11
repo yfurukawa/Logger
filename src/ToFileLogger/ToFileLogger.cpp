@@ -10,8 +10,14 @@ namespace AbstLogger
 
 ToFileLogger::ToFileLogger( std::unique_ptr<::IClock> clock )
     : clock_( std::move(clock) ),
-    fileWriter_( std::make_unique<::TextFileWriter>( createFilePath() ) )
+    fileWriter_( std::make_unique<::TextFileWriter>() )
 {
+    fileWriter_->openFile(createFilePath());
+}
+
+ToFileLogger::~ToFileLogger()
+{
+    fileWriter_->closeFile();
 }
 
 void ToFileLogger::log( const std::string logContent, Severity severity ) const
