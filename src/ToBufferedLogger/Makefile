@@ -7,7 +7,7 @@ LIB_DIR = /usr/local/lib64
 LIB = /usr/local/lib64/libfileinterface.a /usr/local/lib64/libclock.a
 OPT = -O0 -Wall -std=c++17 -fPIC -shared -pthread
 
-TARGET = liblogger_BufferedFile.so.1.0.0
+TARGET = liblogger_BufferedFile.so.1.1.0
 SRC = ToBufferedLoggerFactory.cpp ToBufferedLogger.cpp ContentBuffer.cpp
 
 $(TARGET): $(SRC:.cpp=.o)
