@@ -5,8 +5,9 @@
 #pragma once
 
 // ---------------< include >----------------------------
+#include "Chronos.h"
 #include "Severity.h"
-#include "ToISO8601String.hpp"
+//#include "ToISO8601String.hpp"
 
 // --------------< namespace >---------------------------
 namespace AbstLogger {
@@ -38,13 +39,15 @@ public:
     virtual void log( const std::string logContent, Severity severity = Severity::informational ) const = 0;
 
 protected:
+    Chronos clock_;
     /*!
     @brief      現在日時
     @note       ISO8601準拠の日時文字列を取得する。<br>toString_iso8601メソッドの第2引数により秒の精度を変更することが可能。
     */
     std::string currentTime() const
     {
-        return toString_iso8601<std::chrono::high_resolution_clock::time_point, std::chrono::microseconds>();
+        return clock_.nowIso8601Extended();
+        //return toString_iso8601<std::chrono::high_resolution_clock::time_point, std::chrono::microseconds>();
     }
 };
 
