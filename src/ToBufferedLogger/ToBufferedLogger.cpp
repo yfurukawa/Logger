@@ -13,10 +13,11 @@ namespace AbstLogger
 ToBufferedLogger::ToBufferedLogger( std::unique_ptr<::IClock> clock )
     : stop_(false), finished_(false),
     clock_( std::move(clock) ),
-    fileWriter_( std::make_unique<::TextFileWriter>( createFilePath() ) ),
+    fileWriter_( std::make_unique<::TextFileWriter>() ),
     contentBuffer_( std::make_unique<ContentBuffer>() ),
     observerThread_( std::thread( &ToBufferedLogger::observeLogData, this ) )
 {
+    fileWriter_->openFile(createFilePath());
     // インスタンス生成直後に1つログを出力して修了するとスレッドが待ち状態になる前に
     // プログラムが修了する場合がある。この場合にスレッドが正常に修了しないので、
     // 対策として少し待ち時間を取る。
@@ -26,6 +27,7 @@ ToBufferedLogger::ToBufferedLogger( std::unique_ptr<::IClock> clock )
 
 ToBufferedLogger::~ToBufferedLogger()
 {
+    fileWriter_->closeFile();
     observerThread_.detach();
 }
 
